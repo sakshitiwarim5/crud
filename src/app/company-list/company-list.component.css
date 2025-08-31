@@ -1,0 +1,175 @@
+/* Card */
+.card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  padding: 1.5rem;
+  margin: 2rem auto;
+  max-width: 1000px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Header */
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid #f4f6f8;
+  padding-bottom: 0.75rem;
+}
+
+.card-header h3 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #2c3e50;
+  margin: 0;
+}
+
+/* Primary button */
+.btn.primary {
+  background: #3498db;
+  color: #fff;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.btn.primary:hover {
+  background: #2980b9;
+  transform: translateY(-2px);
+}
+
+/* Table */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  font-size: 0.95rem;
+}
+
+.table th,
+.table td {
+  padding: 0.9rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid #f0f2f5;
+}
+
+.table th {
+  background: #f8f9fa;
+  font-weight: 600;
+  color: #34495e;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+}
+
+.table tr:hover td {
+  background: #f9fcff;
+}
+
+/* Actions column */
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Icon Buttons */
+.icon-btn {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 0.4rem;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease, transform 0.15s ease;
+  color: #34495e;
+}
+
+.icon-btn:hover {
+  background: #ecf5ff;
+  transform: scale(1.1);
+}
+
+.icon-btn.danger {
+  color: #e74c3c;
+}
+
+.icon-btn.danger:hover {
+  background: #fdecea;
+}
+
+/* Empty state */
+.empty {
+  text-align: center;
+  color: #7f8c8d;
+  padding: 2rem;
+  font-size: 0.95rem;
+}
+
+.empty .material-icons {
+  vertical-align: middle;
+  margin-right: 4px;
+  color: #3498db;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .table th,
+  .table td {
+    padding: 0.7rem;
+    font-size: 0.85rem;
+  }
+
+  .btn.primary {
+    padding: 0.5rem 0.8rem;
+    font-size: 0.85rem;
+  }
+}
+/* Nested employees */
+.nested-employees {
+  background: #f9faff;
+  padding: 0.75rem 1rem;
+  border-left: 4px solid #3498db;
+  margin-bottom: 1rem;
+  border-radius: 6px;
+}
+
+.employee-card {
+  background: #fff;
+  padding: 0.6rem 1rem;
+  margin-bottom: 0.6rem;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  font-size: 0.9rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.employee-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.employee-card strong {
+  color: #2c3e50;
+}
+
+.employee-card span {
+  display: inline-block;
+  margin-right: 6px;
+  font-size: 0.85rem;
+  color: #34495e;
+}
+
+.employee-card div {
+  margin-top: 0.3rem;
+  color: #7f8c8d;
+}

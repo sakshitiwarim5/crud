@@ -1,0 +1,211 @@
+<div class="card form-wrapper">
+  <h2 class="form-title">
+    <span class="material-icons">business</span>
+    {{ isEdit ? "Edit Company" : "New Company" }}
+  </h2>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <!-- Basic Info -->
+    <section class="form-section">
+      <h3><span class="material-icons">info</span> Company Basic Info</h3>
+      <div class="grid-2">
+        <div>
+          <label>Company Name *</label>
+          <input formControlName="companyName" class="input" />
+          <div
+            class="error"
+            *ngIf="fc('companyName').touched && fc('companyName').invalid"
+          >
+            Required (max 50)
+          </div>
+        </div>
+        <div>
+          <label>Company Address</label>
+          <input formControlName="address" class="input" />
+        </div>
+        <div>
+          <label>Email *</label>
+          <input formControlName="email" type="email" class="input" />
+          <div class="error" *ngIf="fc('email').touched && fc('email').invalid">
+            Valid email required
+          </div>
+        </div>
+        <div>
+          <label>Phone Number *</label>
+          <input formControlName="phoneNumber" class="input" />
+          <div
+            class="error"
+            *ngIf="fc('phoneNumber').touched && fc('phoneNumber').invalid"
+          >
+            Required (max 15)
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Employees -->
+    <section class="form-section">
+      <div class="section-header">
+        <h3><span class="material-icons">groups</span> Employees</h3>
+        <button
+          type="button"
+          class="btn small primary-outline"
+          (click)="addEmployee()"
+        >
+          <span class="material-icons">person_add</span> Add Employee
+        </button>
+      </div>
+
+      <div
+        *ngFor="let emp of empInfo.controls; let i = index"
+        [formGroup]="emp"
+        class="nested-card"
+      >
+        <div class="grid-2">
+          <div>
+            <label>Employee Name *</label>
+            <input formControlName="empName" class="input" />
+          </div>
+          <div>
+            <label>Designation</label>
+            <select formControlName="designation" class="input">
+              <option *ngFor="let d of designations" [value]="d">
+                {{ d }}
+              </option>
+            </select>
+          </div>
+          <div>
+            <label>Join Date *</label>
+            <input type="date" formControlName="joinDate" class="input" />
+          </div>
+          <div>
+            <label>Email *</label>
+            <input type="email" formControlName="email" class="input" />
+          </div>
+          <div>
+            <label>Phone Number *</label>
+            <input formControlName="phoneNumber" class="input" />
+          </div>
+        </div>
+
+        <!-- Skills -->
+        <div class="sub-section">
+          <div class="section-header">
+            <h4><span class="material-icons">star</span> Skills</h4>
+            <button
+              type="button"
+              class="btn small primary-outline"
+              (click)="addSkill(i)"
+            >
+              <span class="material-icons">add</span> Add Skill
+            </button>
+          </div>
+
+          
+
+          <div
+            *ngFor="let sk of skillArray(i).controls; let si = index"
+            [formGroup]="sk"
+            class="grid-3"
+          >
+            <input
+              formControlName="skillName"
+              class="input"
+              placeholder="Skill name"
+            />
+            <input
+              type="number"
+              formControlName="skillRating"
+              class="input"
+              min="1"
+              max="5"
+            />
+            <button
+              type="button"
+              class="btn danger small"
+              (click)="removeSkill(i, si)"
+            >
+              <span class="material-icons">delete</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Education -->
+        <div class="sub-section">
+          <div class="section-header">
+            <h4><span class="material-icons">school</span> Education</h4>
+            <button
+              type="button"
+              class="btn small primary-outline"
+              (click)="addEdu(i)"
+            >
+              <span class="material-icons">add</span> Add Education
+            </button>
+          </div>
+
+          <div
+            *ngFor="let ed of eduArray(i).controls; let ei = index"
+            [formGroup]="ed"
+            class="grid-3"
+          >
+            <input
+              formControlName="instituteName"
+              class="input"
+              placeholder="Institute name"
+            />
+            <input
+              formControlName="courseName"
+              class="input"
+              placeholder="Course name"
+            />
+            <input
+              formControlName="completedYear"
+              class="input"
+              placeholder="Mar 2021"
+            />
+            <button
+              type="button"
+              class="btn danger small"
+              (click)="removeEdu(i, ei)"
+            >
+              <span class="material-icons">delete</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="align-right">
+          <button
+            type="button"
+            class="btn danger small"
+            (click)="removeEmployee(i)"
+          >
+            <span class="material-icons">person_remove</span> Remove Employee
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Actions -->
+    <div class="form-actions">
+      <button type="submit" class="btn primary" [disabled]="form.invalid">
+        <span class="material-icons">save</span>
+        {{ isEdit ? "Update" : "Save" }}
+      </button>
+      <a class="btn secondary" routerLink="/companies">
+        <span class="material-icons">cancel</span> Cancel
+      </a>
+    </div>
+  </form>
+
+  <!-- Messages -->
+  <div class="alert success" *ngIf="saved">
+    <span class="material-icons">check_circle</span> Company details saved
+    successfully.
+  </div>
+
+  <!-- JSON Output -->
+  <section class="form-section">
+    <h3><span class="material-icons">code</span> Form output JSON</h3>
+    <pre class="json">{{ form.value | json }}</pre>
+  </section>
+</div>
