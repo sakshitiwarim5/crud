@@ -1,7 +1,9 @@
 <div class="card">
-  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem">
+  <div class="card-header">
     <h3>Company List</h3>
-    <a class="btn primary" routerLink="/new-company">➕ New Company</a>
+    <a class="btn primary" routerLink="/new-company">
+      <span class="material-icons">add</span> New Company
+    </a>
   </div>
 
   <table class="table" *ngIf="companies.length; else empty">
@@ -15,20 +17,67 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let c of companies">
-        <td>{{ c.companyName }}</td>
-        <td>{{ c.email }}</td>
-        <td>{{ c.phoneNumber }}</td>
-        <td>{{ c.createdAt | date:'medium' }}</td>
-        <td>
-          <a class="icon-btn" [routerLink]="['/edit-company', c.id]" title="Edit">✏️</a>
-          <button class="icon-btn" (click)="deleteCompany(c)" title="Delete">🗑️</button>
-        </td>
-      </tr>
+      <ng-container *ngFor="let c of companies">
+        <!-- Company row -->
+        <tr>
+          <td>{{ c.companyName }}</td>
+          <td>{{ c.email }}</td>
+          <td>{{ c.phoneNumber }}</td>
+          <td>{{ c.createdAt | date : "medium" }}</td>
+          <td class="actions">
+            <a
+              [routerLink]="['/edit-company', c.id]"
+              class="icon-btn"
+              title="Edit"
+            >
+              <span class="material-icons">edit</span>
+            </a>
+            <button
+              class="icon-btn danger"
+              (click)="deleteCompany(c)"
+              title="Delete"
+            >
+              <span class="material-icons">delete</span>
+            </button>
+          </td>
+        </tr>
+
+        <!-- Employee row -->
+        <tr>
+          <td colspan="5">
+            <div *ngIf="c.empInfo?.length > 0; else noEmp">
+              <h4>Employees:</h4>
+              <div *ngFor="let e of c.empInfo" class="employee-card">
+                <strong>{{ e.empName }}</strong> - {{ e.designation }}<br />
+                Email: {{ e.email }}, Phone: {{ e.phoneNumber }}, Join:
+                {{ e.joinDate | date : "mediumDate" }}
+                <div *ngIf="e.skillInfo?.length">
+                  Skills:
+                  <span *ngFor="let s of e.skillInfo"
+                    >{{ s.skillName }} ({{ s.skillRating }}),
+                  </span>
+                </div>
+                <div *ngIf="e.educationInfo?.length">
+                  Education:
+                  <span *ngFor="let ed of e.educationInfo"
+                    >{{ ed.courseName }} - {{ ed.instituteName }} ({{
+                      ed.completedYear
+                    }}),
+                  </span>
+                </div>
+              </div>
+            </div>
+            <ng-template #noEmp><em>No employees added</em></ng-template>
+          </td>
+        </tr>
+      </ng-container>
     </tbody>
   </table>
 
   <ng-template #empty>
-    <div class="small">No companies yet. Click <b>New Company</b> to add one.</div>
+    <div class="small empty">
+      <span class="material-icons">info</span>
+      No companies yet. Click <b>New Company</b> to add one.
+    </div>
   </ng-template>
 </div>

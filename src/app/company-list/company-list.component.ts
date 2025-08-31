@@ -12,6 +12,7 @@ export class CompanyListComponent {
   companies: Company[] = [];
 
   constructor(private svc: CompanyService, private router: Router) {
+    // Get the dummy companies from service
     this.companies = this.svc.list();
   }
 
@@ -19,7 +20,7 @@ export class CompanyListComponent {
     const ok = confirm(`Delete "${c.companyName}"?`);
     if (ok) {
       this.svc.delete(c.id);
-      this.companies = this.svc.list();
+      this.companies = this.svc.list(); // refresh list after deletion
     }
   }
 }
